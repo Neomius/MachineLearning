@@ -4,11 +4,14 @@ import warnings
 
 def FeatureNormalization(X):
     m = np.size(X, axis=0)  # number of training examples
+    n = np.size(X, axis=1)  # number of features
 
-    mu = np.mean(X)  <---- Detta är nått skumt med... returnerar nog inte skalär
+    mu = np.mean(X, axis=0)
+    mu = np.reshape(mu, [1, n])
+    print("Size of mu:", np.size(mu))
     sigma = np.std(X)
     mu_matrix = mu * (np.ones(m, 1))
-    sigma_matrix = np.ones(m,1) * mu_matrix
+    sigma_matrix = np.ones(m, 1) * mu_matrix
     X_norm = (X - mu_matrix) * sigma_matrix
     return mu, sigma, X_norm
 
